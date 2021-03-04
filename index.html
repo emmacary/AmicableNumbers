@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="AmicableStyle.css">
+	<title>Amicable Numbers</title>
+</head>
+
+<body>
+	<h1> Amicable Numbers! </h1>
+
+	<div class="content">
+		<div class = "columns">
+			<div class="leftColumn">
+				<form class="textbox">
+					<label for="num1">Enter the first number: </label>
+					<input type="text" id="num1"/><br><br>
+					<label for="num2">Enter the second number: </label>
+					<input type="text" id="num2"/><br><br>
+					<input type="button" value="Submit" class="button" onclick="onSubmit()"><br><br>
+				</form>
+
+				<div class="result">
+					<p id="match">Are they amicable???</p>
+				</div>
+			</div>
+
+			<div class="factors">
+				<p id="fact1"></p><br>
+				<p id="factors1"></p><br><br>
+				<p id="fact2"></p><br>
+				<p id="factors2"></p>
+			</div>
+		</div>
+
+	</div>
+
+	<script language="javascript">
+		var num1 = 0;
+		var num2 = 0;
+		var arr1 = [];
+		var arr2 = [];
+		var sum1 = 0;
+		var sum2= 0;
+
+		function onSubmit()
+		{	
+			//clear the space and reset values if button was already clicked
+			reset();
+
+			num1 = document.getElementById("num1").value;
+			num2 = document.getElementById("num2").value;
+			
+			//make sure input is a positive integer
+			if(isNaN(num1) || isNaN(num2) || num1 < 0 || num2 < 0 || num1 == 0 || num2 == 0)
+			{
+				document.getElementById("match").innerHTML = "Please type in positive integers.";
+			}
+			else
+			{
+				findFactors();
+				checkAmicable();
+			}
+		}
+
+		function findFactors()
+		{
+			document.getElementById("fact1").innerHTML = "The factors of " + num1 + " are: ";
+
+			for(i = 1; i <= num1 - 1; i++)
+			{
+				if(num1 % i == 0) 
+				{	
+					arr1.push(i);
+      				document.getElementById("factors1").innerHTML += i + " ";
+    			}
+			}
+			
+			document.getElementById("fact2").innerHTML = "The factors of " + num2 + " are: ";
+
+			for(i = 1; i <= num2 - 1; i++)
+			{
+				if(num2 % i == 0) 
+				{	
+					arr2.push(i);
+      				document.getElementById("factors2").innerHTML += i + " ";
+    			}
+			}
+		}
+
+		function checkAmicable()
+		{
+			for(i = 0; i <= arr1.length - 1; i++)
+			{
+				sum1 += arr1[i];
+			}
+			for(i = 0; i <= arr2.length - 1; i++)
+			{
+				sum2 += arr2[i];
+			}
+
+			if((sum1 == num2) && (sum2 == num1))
+			{
+				document.getElementById("match").innerHTML = "The numbers: " + num1 + " and " + num2 + " are amicable!";
+			}
+			else
+			{
+				document.getElementById("match").innerHTML = "The numbers: " + num1 + " and " + num2 + " are not amicable.";
+			}
+
+		}
+
+		function reset() 
+		{
+			document.getElementById("factors1").innerHTML = "";
+			document.getElementById("factors2").innerHTML = "";
+			num1 = 0;
+			num2 = 0;
+			arr1 = [];
+			arr2 = [];
+			sum1 = 0;
+			sum2= 0;
+		}
+
+	</script>
+
+</body>
+</html>
